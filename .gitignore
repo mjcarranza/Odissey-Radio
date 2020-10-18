@@ -129,6 +129,9 @@ modules.xml
 
 # User project settings
 *.creator.user*
+*.user
+OdisseyRadioPlayer.pro.user
+*.user
 
 # Qt Creator backups
 *.autosave
