@@ -15,7 +15,7 @@ find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Quick REQUIRED)
 
 add_executable(Odissey-Radio main.cpp odisseyradioplayer.cpp odisseyradioplayer.h
-        odisseyradioplayer.ui)
+        odisseyradioplayer.ui MyLinkedList.hpp)
 
 target_link_libraries(Odissey-Radio Qt5::Core)
 target_link_libraries(Odissey-Radio Qt5::Widgets)
