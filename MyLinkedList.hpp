@@ -16,6 +16,7 @@ private:
     Node<T> * tail;
 public:
     MyLinkedList();
+    ~MyLinkedList();
     void add(T data);
     T get(int index);
     Node<T> * getHead();
@@ -88,4 +89,15 @@ Node<T> * MyLinkedList<T>::getTail() {
 template<typename T>
 int MyLinkedList<T>::getLen() {
     return this->len;
+}
+
+template<typename T>
+MyLinkedList<T>::~MyLinkedList() {
+    Node<T> * current = head;
+    while (current != 0) {
+        Node<T> *next = current->nextPtr;
+        delete current;
+        current = next;
+    }
+    head = 0;
 }
