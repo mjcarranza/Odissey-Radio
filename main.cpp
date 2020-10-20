@@ -20,7 +20,6 @@ int main(int argc, char *argv[])
     for (int i = 0; i < lines->getLen(); ++i) {
         cout << lines->get(i) << endl;
     }
-
     QApplication a(argc, argv);
     OdisseyRadioPlayer w;
     w.show();

@@ -15,6 +15,9 @@ public:
     OdisseyRadioPlayer(QWidget *parent = nullptr);
     ~OdisseyRadioPlayer();
 
+private slots:
+    void on_PlayPauseBtn_clicked();
+
 private:
     Ui::OdisseyRadioPlayer *ui;
 };
