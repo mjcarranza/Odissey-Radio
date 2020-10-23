@@ -1,6 +1,8 @@
 #include "odisseyradioplayer.h"
 #include "ui_odisseyradioplayer.h"
 #include <QVBoxLayout>
+#include <QMediaPlayer>
+#include <QFileDialog>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -13,6 +15,17 @@ OdisseyRadioPlayer::OdisseyRadioPlayer(QWidget *parent)
     , ui(new Ui::OdisseyRadioPlayer)
 {
     ui->setupUi(this);
+
+    // assigning the pointer value to a MediaPlayer instance
+    mMediaPlayer = new QMediaPlayer(this);
+
+    connect(mMediaPlayer, &QMediaPlayer::positionChanged, [&](qint64 pos) {
+      ui->SongProgress->setValue(pos);
+    });
+
+    connect(mMediaPlayer, &QMediaPlayer::durationChanged, [&] (qint64 duration){
+      ui->SongProgress->setMaximum(duration);
+    });
 
     // LinkedList instance
     auto *lines = new MyLinkedList<string>;
@@ -61,8 +74,30 @@ OdisseyRadioPlayer::~OdisseyRadioPlayer()
 {
     delete ui;
 }
-
 void OdisseyRadioPlayer::on_PlayPauseBtn_clicked()
 {
+    if (ui->PlayPauseBtn->text() == "Play") {
+        mMediaPlayer->play();
+        ui->PlayPauseBtn->setText("Pause");
+      }
+    else {
+        mMediaPlayer->pause();
+        ui->PlayPauseBtn->setText("Play");
+      }
+}
 
+void OdisseyRadioPlayer::on_AbrirBtn_clicked()
+{
+    QString filename = QFileDialog::getOpenFileName(this, "Abrir");
+    if (filename.isEmpty()) {
+        return;
+      }
+    mMediaPlayer->setMedia(QUrl::fromLocalFile(filename));
+    mMediaPlayer->setVolume(ui->VolumeSlider->value());
+    ui->SongNameLabel->setText(filename);
+}
+
+void OdisseyRadioPlayer::on_VolumeSlider_valueChanged(int value)
+{
+    mMediaPlayer->setVolume(value);
 }
