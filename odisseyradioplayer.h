@@ -2,6 +2,8 @@
 #define ODISSEYRADIOPLAYER_H
 
 #include <QMainWindow>
+#include <QLabel>
+#include <QWidget>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class OdisseyRadioPlayer; }
@@ -22,9 +24,17 @@ private slots:
     void on_VolumeSlider_valueChanged(int value);
 
     void on_AbrirBtn_clicked();
+    
+    void loadSongs();
+    
+    void on_LoadLibraryBtn_clicked();
 
 private:
     Ui::OdisseyRadioPlayer *ui;
     QMediaPlayer * mMediaPlayer;
+    QLabel* clickablelabel;
+    
+protected:
+    void mousePressEvent(QMouseEvent *ev) override;
 };
 #endif // ODISSEYRADIOPLAYER_H
