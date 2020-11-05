@@ -190,11 +190,14 @@ color: rgb(255, 255, 255);</string>
     <widget class="QSlider" name="VolumeSlider">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>60</y>
+       <x>10</x>
+       <y>50</y>
        <width>20</width>
        <height>61</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -289,9 +292,9 @@ color: rgb(255, 255, 255);</string>
    <widget class="QFrame" name="frame_2">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>570</x>
       <y>540</y>
-      <width>131</width>
+      <width>221</width>
       <height>41</height>
      </rect>
     </property>
@@ -329,6 +332,25 @@ color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
       <string>Pagination</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="PaginationBtn">
+     <property name="geometry">
+      <rect>
+       <x>138</x>
+       <y>10</y>
+       <width>71</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(136, 138, 133);</string>
+     </property>
+     <property name="text">
+      <string>Apply</string>
      </property>
     </widget>
    </widget>
@@ -382,7 +404,7 @@ color: rgb(255, 0, 0);</string>
      <number>4</number>
     </property>
     <attribute name="horizontalHeaderVisible">
-     <bool>false</bool>
+     <bool>true</bool>
     </attribute>
     <attribute name="horizontalHeaderCascadingSectionResizes">
      <bool>false</bool>

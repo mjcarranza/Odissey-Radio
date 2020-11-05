@@ -24,9 +24,13 @@ private slots:
     void on_VolumeSlider_valueChanged(int value);
 
     void on_AbrirBtn_clicked();
-    
-    void loadSongs();
-    
+
+    void on_PaginationBtn_clicked();
+
+    int parseLine(char* line);
+
+    int getMemoryValue();
+
     void on_LoadLibraryBtn_clicked();
 
 private:
