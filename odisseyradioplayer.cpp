@@ -19,6 +19,7 @@ QVBoxLayout *libLayout = new QVBoxLayout();
 auto *lines = new MyLinkedList<string>;
 auto *artistList = new MyLinkedList<string>;
 string Artists[999999];
+int pageCounter = 0;
 OdisseyRadioPlayer::OdisseyRadioPlayer(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::OdisseyRadioPlayer)
@@ -38,7 +39,7 @@ OdisseyRadioPlayer::OdisseyRadioPlayer(QWidget *parent)
 
     // If the Library is empty -> fill it out.
     if(libs->getLen()==0){
-        QLabel *gLabel = new QLabel();
+        QPushButton *artistBtn = new QPushButton();
         string genres;
         // Opening csv file
         ifstream genresFile("/home/mario/Escritorio/fma_metadata/artists.csv");
@@ -55,15 +56,14 @@ OdisseyRadioPlayer::OdisseyRadioPlayer(QWidget *parent)
         // Creating a new layout for the library scroll area
         for (int j=1; j<libs->getLen() ; j++) {
             // Filling out the song`s name column
-            gLabel = new QLabel(libs->get(j).data());
-            gLabel->setCursor(Qt::PointingHandCursor);
-            gLabel->setStyleSheet("background-color: white; border: 1px inset grey; min-height: 30px;");
-            libLayout->addWidget(gLabel);
+            artistBtn  = new QPushButton(libs->get(j).data());
+            artistBtn ->setCursor(Qt::PointingHandCursor);
+            artistBtn ->setStyleSheet("min-height: 30px; text-align:left;");
+            // Loading the labels to the UI
+            ui->listWidget->addItem(libs->get(j).data());
+            //QString g= ui->listWidget->currentItem()->text();
             Artists[j-1] = libs->get(j).data();
-            string r = libs->get(j).data();
         }
-        // Loading the labels to the UI
-        ui->scrollAreaWidgetContents->setLayout(libLayout);
     }
     ui->MemoryProgressBar->setValue(this->getMemoryValue());
 }
@@ -71,96 +71,6 @@ OdisseyRadioPlayer::OdisseyRadioPlayer(QWidget *parent)
 OdisseyRadioPlayer::~OdisseyRadioPlayer()
 {
     delete ui;
-}
-
-void OdisseyRadioPlayer::mousePressEvent(QMouseEvent *ev)
-{
-    // Cursor positions
-    int X = ev->x();
-    int Y = ev->y();
-    int space = 54;
-    int numRow = ui->SongTable->rowCount();
-    cout<<ui->SongTable->rowCount();
-    ui->MemoryProgressBar->setValue(this->getMemoryValue());
-
-    // If the Library is empty -> fill it out.
-    if(ui->SongTable->rowCount() > 0){
-        cout<<"entra a limpiar la tabla"<<endl;
-        for ( int i = numRow; i>=0 ; i-- )
-        {
-            ui->SongTable->removeRow(i);
-        }
-    }
-    if (ui->SongTable->rowCount() == 0){
-        //If the library is not empty, the layout is iterated looking for the clicked widged in it
-        for (int i = 0; i < libLayout->count(); ++i){
-            ui->MemoryProgressBar->setValue(this->getMemoryValue());
-            // Obtains the widget in the i position in libLayout
-            QWidget *widget = libLayout->itemAt(i)->widget();
-
-            // If the obtained widget is not null
-            if (widget != NULL){
-
-                // Check if the mouse`s position is on the label
-                if (X >= widget->x()+10 && X <= widget->x()+widget->width()+10
-                        && Y >= widget->y()+30 && Y <= widget->y()+widget->height()+30 && Y<530){
-                    // Look for the selected artist
-
-                    for (int i=1;i <= libs->getLen() ;i++ ) {
-                        ui->MemoryProgressBar->setValue(this->getMemoryValue());
-                        string selectedArtist = Artists[i-1];
-
-                        if (widget->y()+30 <= space*i && widget->y()+ 30 + widget->height() >= space*i ){
-                            cout<<widget->y()<<endl;
-                            cout<<i<<endl;
-                            // Look for the artist`s asociated songs
-                            string art;
-                            // Opening csv file
-                            ifstream artistFile("/home/mario/Escritorio/fma_metadata/Tracks_test2.csv");
-                            // Reading csv file
-                            if (artistList->getLen() == 0){
-                                if (artistFile.is_open()) {
-                                    while (getline(artistFile, art, ',')) {
-                                        artistList->add(art);
-                                    }
-                                    artistFile.close();
-                                }
-                                // If the csv File is not open.
-                                else cout << "Unable to open file";
-                            }
-
-                            // Loading song data to the UI
-                            for (int i=0; i<artistList->getLen() ; i++) {
-                                ui->MemoryProgressBar->setValue(this->getMemoryValue());
-                                //cout << artistList->get(i).data()<<endl;;
-                                string proof = artistList->get(i).data();
-                                if (selectedArtist == artistList->get(i).data()){
-                                    // Filling out the song`s name column
-                                    QString InsertingData1 = artistList->get(i+1).data();
-                                    ui->SongTable->insertRow(ui->SongTable->rowCount()); // Add row
-                                    ui->SongTable->setItem(ui->SongTable->rowCount()-2,0, new QTableWidgetItem(InsertingData1)); // Add data
-
-                                    // Filling out the song`s lenght column
-                                    QString InsertingData2 = artistList->get(i).data();
-                                    ui->SongTable->setItem(ui->SongTable->rowCount()-2,1, new QTableWidgetItem(InsertingData2)); // Add data
-
-                                    // Filling out the song`s artist column
-                                    QString InsertingData3 = artistList->get(i-1).data();
-                                    ui->SongTable->setItem(ui->SongTable->rowCount()-2,2, new QTableWidgetItem(InsertingData3)); // Add data
-
-                                    // Filling out the song`s genre column
-                                    QString InsertingData4 = artistList->get(i-2).data();
-                                    ui->SongTable->setItem(ui->SongTable->rowCount()-2,3, new QTableWidgetItem(InsertingData4)); // Add data
-
-                                } // END IF
-                            } // END FOR
-                        }// END IF
-                    }// END FOR
-                }// END IF
-            }// END IF
-        }// END FOR
-    }
-    ui->MemoryProgressBar->setValue(this->getMemoryValue());
 }
 
 void OdisseyRadioPlayer::on_PlayPauseBtn_clicked()
@@ -237,11 +147,13 @@ int OdisseyRadioPlayer::getMemoryValue()
     usedMemory = (result * 100) / totalMemory;
     return usedMemory; //this value is in KB!
 }
-//string strtext = NombreNodo.toUtf8().constData();///////////////////// pasar de qstring a string
 
 // Loads all songs in the dataset
 void OdisseyRadioPlayer::on_LoadLibraryBtn_clicked()
 {
+    QListWidgetItem *itm = ui->listWidget->currentItem();
+    QString artist = itm->text();
+    string artText = artist.toUtf8().constData();
     int numrow = ui->SongTable->rowCount(), count =1;
     // If the Library is empty -> fill it out.
     if(ui->SongTable->rowCount() > 0){
@@ -252,6 +164,7 @@ void OdisseyRadioPlayer::on_LoadLibraryBtn_clicked()
         }
     }
     if (ui->SongTable->rowCount() == 0){
+
         string art;
         // Opening csv file
         ifstream artistFile("/home/mario/Escritorio/fma_metadata/Tracks_test2.csv");
@@ -265,10 +178,10 @@ void OdisseyRadioPlayer::on_LoadLibraryBtn_clicked()
             // If the csv File is not open.
             else cout << "Unable to open file";
         }
-        cout<<artistList->getLen()<<endl;
+
         // Loading song data to the UI
         for (int i=0; i<artistList->getLen() ; i++) {
-            if(i == count*5){
+            if(artText == "All songs"){
                 ui->MemoryProgressBar->setValue(this->getMemoryValue());
 
                 // Filling out the song`s name column
@@ -277,12 +190,12 @@ void OdisseyRadioPlayer::on_LoadLibraryBtn_clicked()
                 ui->SongTable->insertRow(ui->SongTable->rowCount()); // Add row
                 ui->SongTable->setItem(ui->SongTable->rowCount()-2,0, new QTableWidgetItem(InsertingData1)); // Add data
 
-                // Filling out the song`s lenght column
-                QString InsertingData2 = artistList->get(i-1).data();
+                // Filling out the song`s artist column
+                QString InsertingData2 = artistList->get(i).data();
                 ui->SongTable->setItem(ui->SongTable->rowCount()-2,1, new QTableWidgetItem(InsertingData2)); // Add data
 
-                // Filling out the song`s artist column
-                QString InsertingData3 = artistList->get(i-2).data();
+                // Filling out the song`s lenght column
+                QString InsertingData3 = artistList->get(i-1).data();
                 ui->SongTable->setItem(ui->SongTable->rowCount()-2,2, new QTableWidgetItem(InsertingData3)); // Add data
 
                 // Filling out the song`s genre column
@@ -291,8 +204,30 @@ void OdisseyRadioPlayer::on_LoadLibraryBtn_clicked()
 
                 count ++;
             }
+            else if(artText == artistList->get(i).data()){
+                ui->MemoryProgressBar->setValue(this->getMemoryValue());
 
+                // Filling out the song`s name column
+                QString InsertingData1 = artistList->get(i+1).data();
+                cout<<artistList->get(i).data()<<endl;
+                ui->SongTable->insertRow(ui->SongTable->rowCount()); // Add row
+                ui->SongTable->setItem(ui->SongTable->rowCount()-2,0, new QTableWidgetItem(InsertingData1)); // Add data
+
+                // Filling out the song`s artist column
+                QString InsertingData2 = artistList->get(i).data();
+                ui->SongTable->setItem(ui->SongTable->rowCount()-2,1, new QTableWidgetItem(InsertingData2)); // Add data
+
+                // Filling out the song`s lenght column
+                QString InsertingData3 = artistList->get(i-1).data();
+                ui->SongTable->setItem(ui->SongTable->rowCount()-2,2, new QTableWidgetItem(InsertingData3)); // Add data
+
+                // Filling out the song`s genre column
+                QString InsertingData4 = artistList->get(i-3).data();
+                ui->SongTable->setItem(ui->SongTable->rowCount()-2,3, new QTableWidgetItem(InsertingData4)); // Add data
+
+                count ++;
+            } // END IF
         } // END FOR
-    }
+    } // END IF
 
 }

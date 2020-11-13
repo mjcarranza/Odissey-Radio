@@ -37,8 +37,5 @@ private:
     Ui::OdisseyRadioPlayer *ui;
     QMediaPlayer * mMediaPlayer;
     QLabel* clickablelabel;
-    
-protected:
-    void mousePressEvent(QMouseEvent *ev) override;
 };
 #endif // ODISSEYRADIOPLAYER_H
