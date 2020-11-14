@@ -185,26 +185,26 @@ void OdisseyRadioPlayer::on_LoadLibraryBtn_clicked()
         // Loading song data to the UI
         for (int i=0; i<CSVLineList->getLen() ; i++) {
             if(artText == "All songs"){
-                temporal = artistList->get(7).data();
+                temporal = CSVLineList->get(7).data();
                 ui->MemoryProgressBar->setValue(this->getMemoryValue());
-                if (artistList->get(i).data() == temporal ){
+                if (CSVLineList->get(i).data() == temporal ){
                     ui->MemoryProgressBar->setValue(this->getMemoryValue());
 
                     // Filling out the song`s name column
-                    QString InsertingData1 = artistList->get(i-2).data();
+                    QString InsertingData1 = CSVLineList->get(i-2).data();
                     ui->SongTable->insertRow(ui->SongTable->rowCount()); // Add row
                     ui->SongTable->setItem(ui->SongTable->rowCount()-2,0, new QTableWidgetItem(InsertingData1)); // Add data
 
                     // Filling out the song`s artist column
-                    QString InsertingData2 = artistList->get(i-3).data();
+                    QString InsertingData2 = CSVLineList->get(i-3).data();
                     ui->SongTable->setItem(ui->SongTable->rowCount()-2,1, new QTableWidgetItem(InsertingData2)); // Add data
 
                     // Filling out the song`s lenght column
-                    QString InsertingData3 = artistList->get(i-4).data();
+                    QString InsertingData3 = CSVLineList->get(i-4).data();
                     ui->SongTable->setItem(ui->SongTable->rowCount()-2,2, new QTableWidgetItem(InsertingData3)); // Add data
 
                     // Filling out the song`s genre column
-                    QString InsertingData4 = artistList->get(i-1).data();
+                    QString InsertingData4 = CSVLineList->get(i-1).data();
                     ui->SongTable->setItem(ui->SongTable->rowCount()-2,3, new QTableWidgetItem(InsertingData4)); // Add data
 
                 }
