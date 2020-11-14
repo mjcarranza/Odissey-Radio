@@ -1,6 +1,7 @@
 #include "odisseyradioplayer.h"
 #include "ui_odisseyradioplayer.h"
-#include <QVBoxLayout>
+//#include <QVBoxLayout>
+#include "QMessageBox"
 #include <QMediaPlayer>
 #include <QFileDialog>
 #include <fstream>
@@ -15,7 +16,7 @@
 
 using namespace std;
 auto *libs = new MyLinkedList<string>;
-QVBoxLayout *libLayout = new QVBoxLayout();
+//QVBoxLayout *libLayout = new QVBoxLayout();
 auto *lines = new MyLinkedList<string>;
 auto *artistList = new MyLinkedList<string>;
 string Artists[999999];
@@ -199,7 +200,7 @@ void OdisseyRadioPlayer::on_LoadLibraryBtn_clicked()
                 ui->SongTable->setItem(ui->SongTable->rowCount()-2,2, new QTableWidgetItem(InsertingData3)); // Add data
 
                 // Filling out the song`s genre column
-                QString InsertingData4 = artistList->get(i-2).data();
+                QString InsertingData4 = artistList->get(i+2).data();
                 ui->SongTable->setItem(ui->SongTable->rowCount()-2,3, new QTableWidgetItem(InsertingData4)); // Add data
 
                 count ++;
@@ -222,7 +223,7 @@ void OdisseyRadioPlayer::on_LoadLibraryBtn_clicked()
                 ui->SongTable->setItem(ui->SongTable->rowCount()-2,2, new QTableWidgetItem(InsertingData3)); // Add data
 
                 // Filling out the song`s genre column
-                QString InsertingData4 = artistList->get(i-3).data();
+                QString InsertingData4 = artistList->get(i+2).data();
                 ui->SongTable->setItem(ui->SongTable->rowCount()-2,3, new QTableWidgetItem(InsertingData4)); // Add data
 
                 count ++;
@@ -230,4 +231,44 @@ void OdisseyRadioPlayer::on_LoadLibraryBtn_clicked()
         } // END FOR
     } // END IF
 
+}
+
+void OdisseyRadioPlayer::on_InfoBtn_clicked()
+{
+    ui->SongNameLabel->setText("Electric Ave");
+    QString sngName = ui->SongNameLabel->text();
+    string SongName = sngName.toUtf8().constData();
+    string art, message;
+
+    for (int i=0; i<artistList->getLen() ; i++) {
+        ui->MemoryProgressBar->setValue(this->getMemoryValue());
+        string proof = artistList->get(i).data();
+        if(artistList->get(i).data() == SongName){
+            // Creating the text with current song`s information.
+            string data = "Name: \t \t";
+            data.append(artistList->get(i).data());
+            data.append("\n ");
+            data.append("Artist: \t \t");
+            data.append(artistList->get(i-1).data());
+            data.append("\n ");
+            data.append("Lenght: \t \t");
+            data.append(artistList->get(i-2).data());
+            data.append("\n ");
+            data.append("Genre: \t \t");
+            data.append(artistList->get(i+1).data());
+            data.append("\n ");
+            data.append("Track day created:         ");
+            data.append(artistList->get(i-3).data());
+            data.append("\n ");
+            data.append("Album name: \t");
+            data.append(artistList->get(i-4).data());
+            char temp[data.length()];
+            int size = data.length();
+            // Adding all data to a sigle variable
+            for(int t=0; t<size; t++){
+                temp[t]=data.at(t);
+            }
+            QMessageBox::information(this,tr("SONG INFORMATION"),tr(temp));
+        } // END IF
+    } // END FOR
 }

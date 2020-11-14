@@ -33,6 +33,8 @@ private slots:
 
     void on_LoadLibraryBtn_clicked();
 
+    void on_InfoBtn_clicked();
+
 private:
     Ui::OdisseyRadioPlayer *ui;
     QMediaPlayer * mMediaPlayer;
