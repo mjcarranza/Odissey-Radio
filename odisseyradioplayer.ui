@@ -180,19 +180,6 @@ color: rgb(255, 255, 255);</string>
       <enum>Qt::Vertical</enum>
      </property>
     </widget>
-    <widget class="QPushButton" name="AbrirBtn">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>70</y>
-       <width>91</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Abrir</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="PlayPauseBtn">
      <property name="geometry">
       <rect>
