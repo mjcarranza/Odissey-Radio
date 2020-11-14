@@ -37,6 +37,8 @@ private slots:
 
     void on_SongProgress_valueChanged(int value);
 
+    void on_SongTable_cellClicked(int row, int column);
+
 private:
     Ui::OdisseyRadioPlayer *ui;
     QMediaPlayer * mMediaPlayer;

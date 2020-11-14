@@ -4,6 +4,7 @@
 #include "QMessageBox"
 #include <QMediaPlayer>
 #include <QFileDialog>
+#include <QString>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -18,7 +19,7 @@ using namespace std;
 auto *libs = new MyLinkedList<string>;
 //QVBoxLayout *libLayout = new QVBoxLayout();
 auto *lines = new MyLinkedList<string>;
-auto *artistList = new MyLinkedList<string>;
+auto *CSVLineList = new MyLinkedList<string>;
 string Artists[999999];
 int pageCounter = 0;
 OdisseyRadioPlayer::OdisseyRadioPlayer(QWidget *parent)
@@ -42,8 +43,9 @@ OdisseyRadioPlayer::OdisseyRadioPlayer(QWidget *parent)
     if(libs->getLen()==0){
         QPushButton *artistBtn = new QPushButton();
         string genres;
+        string name = getenv("USERNAME");
         // Opening csv file
-        ifstream genresFile("/home/mario/Escritorio/fma_metadata/artists.csv");
+        ifstream genresFile("/home/" + name + "/fma_metadata/artists.csv");
         // Reading csv file
         if (genresFile.is_open()) {
             while (getline(genresFile, genres)) {
@@ -88,13 +90,15 @@ void OdisseyRadioPlayer::on_PlayPauseBtn_clicked()
 
 void OdisseyRadioPlayer::on_AbrirBtn_clicked()
 {
-    QString filename = QFileDialog::getOpenFileName(this, "Abrir");
-    if (filename.isEmpty()) {
-        return;
-    }
-    mMediaPlayer->setMedia(QUrl::fromLocalFile(filename));
-    mMediaPlayer->setVolume(ui->VolumeSlider->value());
-    ui->SongNameLabel->setText(filename);
+//    QString filename = QFileDialog::getOpenFileName(this, "Abrir");
+//    if (filename.isEmpty()) {
+//        return;
+//    }
+//    mMediaPlayer->setMedia(QUrl::fromLocalFile(filename));
+//    mMediaPlayer->setVolume(ui->VolumeSlider->value());
+//    ui->SongNameLabel->setText(filename);
+    QString selectedItm = ui->SongTable->currentItem()->text();
+    ui->SongNameLabel->setText(selectedItm);
 }
 
 void OdisseyRadioPlayer::on_VolumeSlider_valueChanged(int value)
@@ -169,20 +173,20 @@ void OdisseyRadioPlayer::on_LoadLibraryBtn_clicked()
     // If the Library is empty -> fill it out.
     if(ui->SongTable->rowCount() > 0){
         cout<<"entra a limpiar la tabla"<<endl;
-        for ( int i = numrow; i>=0 ; i-- )
-        {
-            ui->SongTable->removeRow(i);
-        }
+        ui->SongTable->setRowCount(0);
     }
     if (ui->SongTable->rowCount() == 0){
-
         string art;
+        string name;
+        name = getenv("USERNAME");
         // Opening csv file
-        ifstream artistFile("/home/mario/Escritorio/fma_metadata/Tracks_test2.csv");
-        if (artistList->getLen() == 0){
+        ifstream artistFile("/home/" + name + "/fma_metadata/Tracks_test2.csv");
+        delete CSVLineList;
+        CSVLineList = new MyLinkedList<string>;
+        if (CSVLineList->getLen() == 0){
             if (artistFile.is_open()) {
                 while (getline(artistFile, art, ',')) {
-                    artistList->add(art);
+                    CSVLineList->add(art);
                 }
                 artistFile.close();
             }
@@ -191,87 +195,91 @@ void OdisseyRadioPlayer::on_LoadLibraryBtn_clicked()
         }
 
         // Loading song data to the UI
-        for (int i=0; i<artistList->getLen() ; i++) {
+        for (int i=0; i<CSVLineList->getLen() ; i++) {
             if(artText == "All songs"){
                 ui->MemoryProgressBar->setValue(this->getMemoryValue());
 
                 // Filling out the song`s name column
-                QString InsertingData1 = artistList->get(i).data();
-                cout<<artistList->get(i).data()<<endl;
+                QString InsertingData1 = CSVLineList->get(i).data();
+                cout<<CSVLineList->get(i).data()<<endl;
                 ui->SongTable->insertRow(ui->SongTable->rowCount()); // Add row
                 ui->SongTable->setItem(ui->SongTable->rowCount()-2,0, new QTableWidgetItem(InsertingData1)); // Add data
 
                 // Filling out the song`s artist column
-                QString InsertingData2 = artistList->get(i).data();
+                QString InsertingData2 = CSVLineList->get(i).data();
                 ui->SongTable->setItem(ui->SongTable->rowCount()-2,1, new QTableWidgetItem(InsertingData2)); // Add data
 
                 // Filling out the song`s lenght column
-                QString InsertingData3 = artistList->get(i-1).data();
+                QString InsertingData3 = CSVLineList->get(i-1).data();
                 ui->SongTable->setItem(ui->SongTable->rowCount()-2,2, new QTableWidgetItem(InsertingData3)); // Add data
 
                 // Filling out the song`s genre column
-                QString InsertingData4 = artistList->get(i+2).data();
+                QString InsertingData4 = CSVLineList->get(i+2).data();
                 ui->SongTable->setItem(ui->SongTable->rowCount()-2,3, new QTableWidgetItem(InsertingData4)); // Add data
 
                 count ++;
             }
-            else if(artText == artistList->get(i).data()){
+            else if(artText == CSVLineList->get(i).data()){
                 ui->MemoryProgressBar->setValue(this->getMemoryValue());
 
                 // Filling out the song`s name column
-                QString InsertingData1 = artistList->get(i+1).data();
-                cout<<artistList->get(i).data()<<endl;
+                QString InsertingData1 = CSVLineList->get(i+1).data();
+                cout<<CSVLineList->get(i).data()<<endl;
                 ui->SongTable->insertRow(ui->SongTable->rowCount()); // Add row
                 ui->SongTable->setItem(ui->SongTable->rowCount()-2,0, new QTableWidgetItem(InsertingData1)); // Add data
 
                 // Filling out the song`s artist column
-                QString InsertingData2 = artistList->get(i).data();
+                QString InsertingData2 = CSVLineList->get(i).data();
                 ui->SongTable->setItem(ui->SongTable->rowCount()-2,1, new QTableWidgetItem(InsertingData2)); // Add data
 
                 // Filling out the song`s lenght column
-                QString InsertingData3 = artistList->get(i-1).data();
+                QString InsertingData3 = CSVLineList->get(i-1).data();
                 ui->SongTable->setItem(ui->SongTable->rowCount()-2,2, new QTableWidgetItem(InsertingData3)); // Add data
 
                 // Filling out the song`s genre column
-                QString InsertingData4 = artistList->get(i+2).data();
+                QString InsertingData4 = CSVLineList->get(i+2).data();
                 ui->SongTable->setItem(ui->SongTable->rowCount()-2,3, new QTableWidgetItem(InsertingData4)); // Add data
 
                 count ++;
-            } // END IF
+            }
+            // END IF
         } // END FOR
+        cout << ui->SongTable->rowCount() << endl;
+        if(ui->SongTable->rowCount() == 0) {
+            QMessageBox::information(this,"Alert","No songs found for the selected artist.");
+          }
     } // END IF
 
 }
 
 void OdisseyRadioPlayer::on_InfoBtn_clicked()
 {
-    ui->SongNameLabel->setText("Electric Ave");
     QString sngName = ui->SongNameLabel->text();
     string SongName = sngName.toUtf8().constData();
     string art, message;
 
-    for (int i=0; i<artistList->getLen() ; i++) {
+    for (int i=0; i<CSVLineList->getLen() ; i++) {
         ui->MemoryProgressBar->setValue(this->getMemoryValue());
-        string proof = artistList->get(i).data();
-        if(artistList->get(i).data() == SongName){
+        string proof = CSVLineList->get(i).data();
+        if(CSVLineList->get(i).data() == SongName){
             // Creating the text with current song`s information.
             string data = "Name: \t \t";
-            data.append(artistList->get(i).data());
+            data.append(CSVLineList->get(i).data());
             data.append("\n ");
             data.append("Artist: \t \t");
-            data.append(artistList->get(i-1).data());
+            data.append(CSVLineList->get(i-1).data());
             data.append("\n ");
             data.append("Lenght: \t \t");
-            data.append(artistList->get(i-2).data());
+            data.append(CSVLineList->get(i-2).data());
             data.append("\n ");
             data.append("Genre: \t \t");
-            data.append(artistList->get(i+1).data());
+            data.append(CSVLineList->get(i+1).data());
             data.append("\n ");
             data.append("Track day created:         ");
-            data.append(artistList->get(i-3).data());
+            data.append(CSVLineList->get(i-3).data());
             data.append("\n ");
             data.append("Album name: \t");
-            data.append(artistList->get(i-4).data());
+            data.append(CSVLineList->get(i-4).data());
             char temp[data.length()];
             int size = data.length();
             // Adding all data to a sigle variable
@@ -279,6 +287,73 @@ void OdisseyRadioPlayer::on_InfoBtn_clicked()
                 temp[t]=data.at(t);
             }
             QMessageBox::information(this,tr("SONG INFORMATION"),tr(temp));
+            break;
         } // END IF
     } // END FOR
+}
+
+string getIdModifier(string songId) {
+  string modifiedId = "000";
+  if (songId.length() == 3) {
+      // dont change anything, folder is 000
+    }
+  else if (songId.length() == 4) {
+      modifiedId = "00" + songId.substr(0,1);
+    }
+  else if (songId.length() == 5) {
+      modifiedId = "0" + songId .substr(0,2);
+    }
+  return modifiedId;
+}
+
+string getIdForPath(string songId) {
+  string songPath = "0";
+  while (songPath.length() != 6) {
+      string tempString = songPath + songId;
+      if (tempString.length() == 6) {
+          songPath = tempString;
+        }
+      else {
+          songPath.append("0");
+        }
+    }
+  songPath.append(".mp3");
+  return songPath;
+}
+
+void OdisseyRadioPlayer::on_SongTable_cellClicked(int row, int column)
+{
+    ui->SongTable->selectRow(row);
+    QString selectedItem = ui->SongTable->currentItem()->text();
+    ui->SongNameLabel->setText(selectedItem);
+    string songName = selectedItem.toUtf8().constData();
+    string user = getenv("USERNAME");
+    string numID; // original space with the numeric Id
+    string numId; // modified string containing only the numbers for the song id
+    for (int i = 0;i < CSVLineList->getLen() ;i++) {
+        if (CSVLineList->get(i) == songName) {
+            // get the numeric ID of a song using substrings from the data of a list node
+            numID = CSVLineList->get(i-5).data();
+            int pos = numID.find("\n");
+            numId = numID.substr(pos + 1);
+            cout << "song ID: " << numId << endl;
+            break;
+          }
+      }
+    string folder = getIdModifier(numId);
+    cout << "folder is: " << folder << endl;
+    string songFileId = getIdForPath(numId);
+    cout << "song in file is: " << songFileId << endl;
+    string path = "/home/" + user + "/fma_small/" + folder +"/" + songFileId;
+    cout << "entire path is: " << path << endl;
+
+    QString filename = QString::fromStdString(path);
+
+    try {
+      mMediaPlayer->setMedia(QUrl::fromLocalFile(filename));
+      mMediaPlayer->setVolume(ui->VolumeSlider->value());
+    }  catch (int e) {
+      QMessageBox::information(this,"Alert","This song was not found in the dataset, please select another song.");
+    }
+
 }
