@@ -22,6 +22,11 @@ auto *lines = new MyLinkedList<string>;
 auto *CSVLineList = new MyLinkedList<string>;
 string Artists[999999];
 int pageCounter = 0;
+/**
+ * @brief widget method for the core functionalities of the Qt5 application widget.
+ * @param parent pointer to the parent container for all the functionalities, containers, slots and methods.
+ * @author mjcarranza
+ */
 OdisseyRadioPlayer::OdisseyRadioPlayer(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::OdisseyRadioPlayer)
@@ -71,11 +76,18 @@ OdisseyRadioPlayer::OdisseyRadioPlayer(QWidget *parent)
     ui->MemoryProgressBar->setValue(this->getMemoryValue());
 }
 
+/**
+ * @brief default generated destructor for the application
+ * @author mjcarranza
+ */
 OdisseyRadioPlayer::~OdisseyRadioPlayer()
 {
     delete ui;
 }
-
+/**
+ * @brief slot method that is summoned when the 'play' button is clicked on the GUI.
+ * @author mjcarranza
+ */
 void OdisseyRadioPlayer::on_PlayPauseBtn_clicked()
 {
     if (ui->PlayPauseBtn->text() == "Play") {
@@ -88,19 +100,11 @@ void OdisseyRadioPlayer::on_PlayPauseBtn_clicked()
     }
 }
 
-void OdisseyRadioPlayer::on_AbrirBtn_clicked()
-{
-//    QString filename = QFileDialog::getOpenFileName(this, "Abrir");
-//    if (filename.isEmpty()) {
-//        return;
-//    }
-//    mMediaPlayer->setMedia(QUrl::fromLocalFile(filename));
-//    mMediaPlayer->setVolume(ui->VolumeSlider->value());
-//    ui->SongNameLabel->setText(filename);
-    QString selectedItm = ui->SongTable->currentItem()->text();
-    ui->SongNameLabel->setText(selectedItm);
-}
-
+/**
+ * @brief slot method that is summoned when the 'Volume' slider value is modified by the user on the GUI.
+ * @param value the resulting value between 0-100 on the volume slider.
+ * @author AleQuesada2012
+ */
 void OdisseyRadioPlayer::on_VolumeSlider_valueChanged(int value)
 {
     mMediaPlayer->setVolume(value);
@@ -116,7 +120,10 @@ void OdisseyRadioPlayer::on_SongProgress_valueChanged(int value)
     // ui->SongProgress->setValue(value);
 }
 
-// Button to enable or disable pagination
+/**
+ * button that toggles the pagination functionality.
+ * @author mjcarranza
+ */
 void OdisseyRadioPlayer::on_PaginationBtn_clicked()
 {
     // if the box is checked, it enables pagination
@@ -133,6 +140,12 @@ void OdisseyRadioPlayer::on_PaginationBtn_clicked()
     }
 }
 
+/**
+ * @brief auxiliary method to read the memory usage from the system.
+ * @param line a char pointer
+ * @return integer i positional value
+ * @author mjcarranza
+ */
 int OdisseyRadioPlayer::parseLine(char *line)
 {
     // This assumes that a digit will be found and the line ends in " Kb".
@@ -144,6 +157,11 @@ int OdisseyRadioPlayer::parseLine(char *line)
     return i;
 }
 
+/**
+ * @brief main memory value obtaining method.
+ * @return used memory value in KB.
+ * @author mjcarranza
+ */
 int OdisseyRadioPlayer::getMemoryValue()
 {
     FILE* file = fopen("/proc/self/status", "r");
@@ -163,7 +181,10 @@ int OdisseyRadioPlayer::getMemoryValue()
     return usedMemory; //this value is in KB!
 }
 
-// Loads all songs in the dataset
+/**
+ * @brief slot method that loads the songs from the dataset to memory.
+ * @author mjcarranza
+ */
 void OdisseyRadioPlayer::on_LoadLibraryBtn_clicked()
 {
     QListWidgetItem *itm = ui->listWidget->currentItem();
@@ -251,7 +272,10 @@ void OdisseyRadioPlayer::on_LoadLibraryBtn_clicked()
     } // END IF
 
 }
-
+/**
+ * @brief slot method summoned when the 'show info' button is clicked on the GUI.
+ * @author mjcarranza
+ */
 void OdisseyRadioPlayer::on_InfoBtn_clicked()
 {
     QString sngName = ui->SongNameLabel->text();
@@ -291,7 +315,12 @@ void OdisseyRadioPlayer::on_InfoBtn_clicked()
         } // END IF
     } // END FOR
 }
-
+/**
+ * @brief helper method to find the corresponding folder to a song in the FMA dataset.
+ * @param songId the parameter found in a CSV line corresponding to the song numeric ID.
+ * @return 3-element string equivalent to the folder name containing the desired song.
+ * @author AleQuesada2012
+ */
 string getIdModifier(string songId) {
   string modifiedId = "000";
   if (songId.length() == 3) {
@@ -305,7 +334,12 @@ string getIdModifier(string songId) {
     }
   return modifiedId;
 }
-
+/**
+ * @brief helper method to find the corresponding path of a song in the FMA dataset.
+ * @param songId the parameter found in the CSV corresponding to the song's ID.
+ * @return 6-element string equivalent to the song's unique name, followed by '.mp3' file type terminology.
+ * @author AleQuesada2012
+ */
 string getIdForPath(string songId) {
   string songPath = "0";
   while (songPath.length() != 6) {
@@ -320,7 +354,12 @@ string getIdForPath(string songId) {
   songPath.append(".mp3");
   return songPath;
 }
-
+/**
+ * @brief slot method summoned when a song element is clicked on the table displayed in the GUI.
+ * @param row integer counter for the row in the table view
+ * @param column integer counter for the column in the table view
+ * @author AleQuesada2012
+ */
 void OdisseyRadioPlayer::on_SongTable_cellClicked(int row, int column)
 {
     ui->SongTable->selectRow(row);
