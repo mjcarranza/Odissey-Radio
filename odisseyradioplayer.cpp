@@ -88,19 +88,6 @@ void OdisseyRadioPlayer::on_PlayPauseBtn_clicked()
     }
 }
 
-void OdisseyRadioPlayer::on_AbrirBtn_clicked()
-{
-//    QString filename = QFileDialog::getOpenFileName(this, "Abrir");
-//    if (filename.isEmpty()) {
-//        return;
-//    }
-//    mMediaPlayer->setMedia(QUrl::fromLocalFile(filename));
-//    mMediaPlayer->setVolume(ui->VolumeSlider->value());
-//    ui->SongNameLabel->setText(filename);
-    QString selectedItm = ui->SongTable->currentItem()->text();
-    ui->SongNameLabel->setText(selectedItm);
-}
-
 void OdisseyRadioPlayer::on_VolumeSlider_valueChanged(int value)
 {
     mMediaPlayer->setVolume(value);
