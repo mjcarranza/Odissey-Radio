@@ -1,0 +1,207 @@
+\hypertarget{classMyLinkedList}{}\doxysection{My\+Linked\+List$<$ T $>$ Class Template Reference}
+\label{classMyLinkedList}\index{MyLinkedList$<$ T $>$@{MyLinkedList$<$ T $>$}}
+
+
+Class declaration for a custom Linked\+List implementation.  
+
+
+
+
+{\ttfamily \#include $<$My\+Linked\+List.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMyLinkedList_a0d96f5757d5926a257f6036445336f94}{My\+Linked\+List}} ()
+\begin{DoxyCompactList}\small\item\em default constructor for \mbox{\hyperlink{classMyLinkedList}{My\+Linked\+List}} class \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classMyLinkedList_a8f7d55fe990eae8eecc70bef4ee0c587}{$\sim$\+My\+Linked\+List}} ()
+\begin{DoxyCompactList}\small\item\em custom Linkedlist destructor method \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMyLinkedList_a30f7148c808d74687b84b6ed75f97eb8}{add}} (T data)
+\begin{DoxyCompactList}\small\item\em add method to append or insert data at the end of the list \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{classMyLinkedList_a595284b33b007c6d78b4921c6496d06f}{get}} (int index)
+\begin{DoxyCompactList}\small\item\em get method, uses index to obtain the object in the specified position of the list \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structNode}{Node}}$<$ T $>$ $\ast$ \mbox{\hyperlink{classMyLinkedList_a08748af775fb46f675d9d3e77ca474ab}{get\+Head}} ()
+\begin{DoxyCompactList}\small\item\em accessor method for the head attribute of the list instance \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structNode}{Node}}$<$ T $>$ $\ast$ \mbox{\hyperlink{classMyLinkedList_a34f203f606526e82bc92c6e8ce9f4174}{get\+Tail}} ()
+\begin{DoxyCompactList}\small\item\em accessor method for the tail attribute of the list instance. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classMyLinkedList_ae23d01c08eb6bffffca60511ca7f06b0}{get\+Len}} ()
+\begin{DoxyCompactList}\small\item\em accessor method for the length attribute of this list instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class My\+Linked\+List$<$ T $>$}
+
+Class declaration for a custom Linked\+List implementation. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & generic T-\/type template used for every value stored in the linked list. \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyAuthor}{Author}
+Ale\+Quesada2012 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMyLinkedList_a0d96f5757d5926a257f6036445336f94}\label{classMyLinkedList_a0d96f5757d5926a257f6036445336f94}} 
+\index{MyLinkedList$<$ T $>$@{MyLinkedList$<$ T $>$}!MyLinkedList@{MyLinkedList}}
+\index{MyLinkedList@{MyLinkedList}!MyLinkedList$<$ T $>$@{MyLinkedList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{MyLinkedList()}{MyLinkedList()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classMyLinkedList}{My\+Linked\+List}}$<$ T $>$\+::\mbox{\hyperlink{classMyLinkedList}{My\+Linked\+List}}}
+
+
+
+default constructor for \mbox{\hyperlink{classMyLinkedList}{My\+Linked\+List}} class 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & generic T data type for the data structure \\
+\hline
+\end{DoxyTemplParams}
+\mbox{\Hypertarget{classMyLinkedList_a8f7d55fe990eae8eecc70bef4ee0c587}\label{classMyLinkedList_a8f7d55fe990eae8eecc70bef4ee0c587}} 
+\index{MyLinkedList$<$ T $>$@{MyLinkedList$<$ T $>$}!````~MyLinkedList@{$\sim$MyLinkedList}}
+\index{````~MyLinkedList@{$\sim$MyLinkedList}!MyLinkedList$<$ T $>$@{MyLinkedList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$MyLinkedList()}{~MyLinkedList()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classMyLinkedList}{My\+Linked\+List}}$<$ T $>$\+::$\sim$\mbox{\hyperlink{classMyLinkedList}{My\+Linked\+List}}}
+
+
+
+custom Linkedlist destructor method 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & generic template used in every declared method of this class \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyAuthor}{Author}
+Ale\+Quesada2012 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMyLinkedList_a30f7148c808d74687b84b6ed75f97eb8}\label{classMyLinkedList_a30f7148c808d74687b84b6ed75f97eb8}} 
+\index{MyLinkedList$<$ T $>$@{MyLinkedList$<$ T $>$}!add@{add}}
+\index{add@{add}!MyLinkedList$<$ T $>$@{MyLinkedList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classMyLinkedList}{My\+Linked\+List}}$<$ T $>$\+::add (\begin{DoxyParamCaption}\item[{T}]{data }\end{DoxyParamCaption})}
+
+
+
+add method to append or insert data at the end of the list 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Generic data type for the linked list data structure \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em data} & value or object to be appended to the linked list instance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Ale\+Quesada2012 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classMyLinkedList_a595284b33b007c6d78b4921c6496d06f}\label{classMyLinkedList_a595284b33b007c6d78b4921c6496d06f}} 
+\index{MyLinkedList$<$ T $>$@{MyLinkedList$<$ T $>$}!get@{get}}
+\index{get@{get}!MyLinkedList$<$ T $>$@{MyLinkedList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \mbox{\hyperlink{classMyLinkedList}{My\+Linked\+List}}$<$ T $>$\+::get (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+
+get method, uses index to obtain the object in the specified position of the list 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & generic data type for the data structure \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em index} & integer position of the desired value to obtain \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+generic type object contained in the specified position of the list starting from head 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Ale\+Quesada2012 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classMyLinkedList_a08748af775fb46f675d9d3e77ca474ab}\label{classMyLinkedList_a08748af775fb46f675d9d3e77ca474ab}} 
+\index{MyLinkedList$<$ T $>$@{MyLinkedList$<$ T $>$}!getHead@{getHead}}
+\index{getHead@{getHead}!MyLinkedList$<$ T $>$@{MyLinkedList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getHead()}{getHead()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{structNode}{Node}}$<$ T $>$ $\ast$ \mbox{\hyperlink{classMyLinkedList}{My\+Linked\+List}}$<$ T $>$\+::get\+Head}
+
+
+
+accessor method for the head attribute of the list instance 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & generic type equivalent to the object type contained in each node of the list \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+the object contained in the first node of the referenced list instance 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Ale\+Quesada2012 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classMyLinkedList_ae23d01c08eb6bffffca60511ca7f06b0}\label{classMyLinkedList_ae23d01c08eb6bffffca60511ca7f06b0}} 
+\index{MyLinkedList$<$ T $>$@{MyLinkedList$<$ T $>$}!getLen@{getLen}}
+\index{getLen@{getLen}!MyLinkedList$<$ T $>$@{MyLinkedList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getLen()}{getLen()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int \mbox{\hyperlink{classMyLinkedList}{My\+Linked\+List}}$<$ T $>$\+::get\+Len}
+
+
+
+accessor method for the length attribute of this list instance. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & generic type contained in every node of the list. \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+integer value corresponding to the amount of objects contained in this list instance. 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Ale\+Quesada2012 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classMyLinkedList_a34f203f606526e82bc92c6e8ce9f4174}\label{classMyLinkedList_a34f203f606526e82bc92c6e8ce9f4174}} 
+\index{MyLinkedList$<$ T $>$@{MyLinkedList$<$ T $>$}!getTail@{getTail}}
+\index{getTail@{getTail}!MyLinkedList$<$ T $>$@{MyLinkedList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getTail()}{getTail()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{structNode}{Node}}$<$ T $>$ $\ast$ \mbox{\hyperlink{classMyLinkedList}{My\+Linked\+List}}$<$ T $>$\+::get\+Tail}
+
+
+
+accessor method for the tail attribute of the list instance. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & generic type equivalent to the object type contained in every node of the list \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+the object contained in the last node of the referenced list instance 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Ale\+Quesada2012 
+\end{DoxyAuthor}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+My\+Linked\+List.\+hpp\end{DoxyCompactItemize}
