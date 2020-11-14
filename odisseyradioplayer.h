@@ -35,6 +35,8 @@ private slots:
 
     void on_InfoBtn_clicked();
 
+    void on_SongProgress_valueChanged(int value);
+
 private:
     Ui::OdisseyRadioPlayer *ui;
     QMediaPlayer * mMediaPlayer;

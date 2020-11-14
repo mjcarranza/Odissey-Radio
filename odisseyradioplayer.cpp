@@ -102,6 +102,16 @@ void OdisseyRadioPlayer::on_VolumeSlider_valueChanged(int value)
     mMediaPlayer->setVolume(value);
 }
 
+/**
+ * @brief OdisseyRadioPlayer::on_SongProgress_valueChanged changes the song progress to the position selected by User
+ * @author AleQuesada2012
+ */
+void OdisseyRadioPlayer::on_SongProgress_valueChanged(int value)
+{
+    mMediaPlayer->setPosition(value);
+    // ui->SongProgress->setValue(value);
+}
+
 // Button to enable or disable pagination
 void OdisseyRadioPlayer::on_PaginationBtn_clicked()
 {
